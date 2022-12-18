@@ -34,7 +34,7 @@
   </div>
     </div>
         <div class="col-md-9">
-            <c:if test="${page=='str'}">
+            <c:if test="${page=='home'}">
             	<h1 class="text-center">All TODO</h1>
             	
             	<c:forEach items="${todos}" var="t">

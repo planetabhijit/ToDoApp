@@ -1,6 +1,5 @@
 package com.ctrl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class HomeCtrl {
 
 		String str = "home";
 		m.addAttribute("page",str);
-		
+//		ServletContext sc = null;
 		List<ToDo> list = (List<ToDo>) sc.getAttribute("list");
 		m.addAttribute("todos",list);
 		return "home";
@@ -46,7 +45,7 @@ public class HomeCtrl {
 		
 		System.out.println("t: "+t);
 		t.setTodoDate(new Date());
-		
+//		ServletContext sc = null;
 		List<ToDo> list = (List<ToDo>) sc.getAttribute("list");
 		list.add(t);
 		m.addAttribute("msg", "successfulattributeValue");
