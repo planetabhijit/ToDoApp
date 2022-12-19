@@ -3,6 +3,8 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
         http://www.springframework.org/schema/beans
@@ -11,9 +13,11 @@
         https://www.springframework.org/schema/mvc/spring-mvc.xsd
         http://www.springframework.org/schema/context
         https://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
         ">
 
-	<context:component-scan base-package="com.ctrl"></context:component-scan>
+	<context:component-scan base-package="com"></context:component-scan>
 
 	<mvc:annotation-driven
 		enable-matrix-variables="true" />
@@ -28,10 +32,10 @@
 	<bean
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
 		name="dataSource">
-		<property name="driverCLassName"
+		<property name="driverClassName"
 			value="com.mysql.jdbc.Driver"></property>
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/abhijit"></property>
+			value="jdbc:mysql://localhost:3306/abhijitdb"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="pass@123"></property>
 	</bean>
@@ -45,7 +49,7 @@
 				<prop key="hibernate.dialect">
 					org.hibernate.dialect.MySQL57Dialect
 				</prop>
-				<prop key="hibernate.hbm2ddl.auto">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.show_sql">true</prop>
 			</props>
 		</property>
@@ -53,13 +57,18 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>
-					com.entites.Todo
+					com.entity.ToDo
 				</value>
 			</list>
 		</property>
 	</bean>
 
 	<bean class="org.springframework.orm.hibernate5.HibernateTemplate" name="hibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+		 <property name="checkWriteOperations" value="false"></property>
+	</bean>
+
+	<bean class="org.springframework.orm.hibernate5.HibernateTransactionManager" name="transactionManager">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
